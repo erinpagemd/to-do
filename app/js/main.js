@@ -16,9 +16,18 @@ function initialize () {
 
 }//end of initialize
 
+//get the data from firebase
+function getExistingTasks () {
+  $.get(FIREBASE_URL + 'tasks/.json', function(resFB) {
+    Object.keys(resFB).forEach(function() {
+      loadFriend();
+    })
+  })
+}
+
 //add the new to-do to firebase
 function addNewToDo (event) {
-  var url = FIREBASE_URL + '.json';
+  var url = FIREBASE_URL + 'tasks/.json';
   var toDoObj = JSON.stringify({task: getNewToDo(event)});
   $.post(url, toDoObj, function(res){});
 }//end of addNewToDo
