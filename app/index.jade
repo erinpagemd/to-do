@@ -1,6 +1,7 @@
 doctype html
 html
   head
+    meta(name='viewport' content='width=device-width, initial-scale=1')
     link(rel='stylesheet' href='css/bootstrap.min.css' type='text/css')
     link(rel='stylesheet' href='css/main.css' type='text/css')
     title Honey Dew
@@ -8,12 +9,13 @@ html
   body
     h1 Honey Dew
     
-    form 
-      input(type='text' id='newToDo')
-      button(id='addNewToDo') Add to List
+    form.form-horizontal.col-sm-offset-3
+      .col-sm-6
+        input.form-control(type='text' id='newToDo' placeholder='add task... ')
+      button.btn.btn-success(id='addNewToDo') Add to List
       
     .tasks
-      h1 Tasks
+      h2 Tasks
       
     script(type='text/javascript' src='vendor/jquery.js')
     script(type='text/javascript' src='vendor/lodash.min.js')

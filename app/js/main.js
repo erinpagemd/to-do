@@ -13,8 +13,23 @@ function initialize () {
 
   $('#addNewToDo').click(addNewToDo);
 
+  //click the 'x' to remove the task
+  $('.tasks').click(removeTask);
+
   getExistingTasks();
 }//end of initialize
+
+//remove the task from firebase and the view
+function removeTask (event) {
+  event.preventDefault();
+  var $divToRemove = $(event.target).closest('.tableBody');
+  var uuid = $divToRemove.data('uuid');
+
+  var urlItem = FIREBASE_URL + '/tasks/' + uuid + '.json';
+  $.ajax(urlItem, {type: 'DELETE'});
+
+  $divToRemove.remove();
+}
 
 //get the data from firebase
 function getExistingTasks () {
@@ -38,10 +53,10 @@ function makeTaskDiv (uuid, data) {
   var $divTask = $('<div class="tableBody"></div>');
 
   //each item in the task
-  var $divText = $('<div>' + data.task + '</div>');
+  var $li = $('<li><input type="checkbox">  ' + data.task + '<button class="btn btn-warning">x</button></li>');
 
   //append the items to the task div
-  $divTask.append($divText);
+  $divTask.append($li);
   $divTask.attr('data-uuid', uuid);
 
   return $divTask;
@@ -52,6 +67,8 @@ function addNewToDo (event) {
   var url = FIREBASE_URL + 'tasks/.json';
   var toDoObj = JSON.stringify({task: getNewToDo(event)});
   $.post(url, toDoObj, function(res){});
+  $('.tasks').empty();
+  getExistingTasks();
 }//end of addNewToDo
 
 //grab the new to-do

@@ -1,3 +1,42 @@
+#newToDo {
+  background-color: #424A43;
+  color: white;
+}
+
+.form-inline {
+  text-align: center;
+}
+
+body {
+  background: linear-gradient(to bottom, #8DBA94, #424A43 100%);
+  background-attachment: fixed;
+}
+
+.tableBody {
+  background-color: white;
+  margin: 1% 20%;
+  padding: 1%;
+  color: #424A43;
+}
+
 h1 {
-  color: blue;
+  text-align: center;
+  color: white;
+  margin: 1% 20%;
+}
+
+h2 {
+  text-align: center;
+  color: white;
+}
+
+li {
+  list-style: none;
+}
+
+.btn-warning {
+  float: right;
+  font-weight: bold;
+  font-size: 1em;
+  position: relative;
 }
