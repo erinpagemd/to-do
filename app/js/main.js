@@ -11,8 +11,17 @@ var FIREBASE_URL = 'https://honey-dew.firebaseio.com/',
 $(document).ready(initialize);
 function initialize () {
 
-  //login stuff
-  $('#auth').click(getUserInfo)
+  //click login
+
+  //click signup
+
+  //click logout
+
+  //click sign me IN
+  $('#auth').click(loginExistingUser);
+
+  //click sign me UP
+  $('#firstTime').click(createNewUser);
 
   //add task to the firebase when click on add to list
   $('#addNewToDo').click(addNewToDo);
@@ -25,7 +34,6 @@ function initialize () {
 
 //get the users credentials
 function getUserInfo (event) {
-  event.preventDefault();
   var $emailLogin = $('#emailLogin').val();
   var $passwordLogin = $('#passwordLogin').val();
   var $verifyPassword = $('#verifyPassword').val();
@@ -33,23 +41,45 @@ function getUserInfo (event) {
     email: $emailLogin,
     password: $passwordLogin
   }
-  createNewUser(loginObj);
-  //have a function that gets the auth
-  //if already a user login, if not then create user and login
 
+  return loginObj;
 }
 
-//create a new user account
-function createNewUser (obj) {
-  fb.createUser(obj, function(error, userData) {
+//create a new user account and login
+function createNewUser (event) {
+  event.preventDefault();
+  fb.createUser(getUserInfo(event), function(error, userData) {
     if (error) {
-      console.log('Error creating user: ', error);
+      alert('REJECTED! ', error.code);
     } else {
       console.log('Successfully created user account with uid: ', userData.uid);
     }
   });
+
+  clearLoginInputs();
 }
 
+//log a user in that already has an account
+function loginExistingUser (event) {
+  event.preventDefault();
+  fb.authWithPassword(getUserInfo(event), function(error, authData) {
+    if (error) {
+      alert('login failed', error);
+    } else {
+      console.log('Authenteicated successfully with payload: ', authData);
+    }
+  });
+
+  clearLoginInputs();
+}
+
+//clear the login input values
+function clearLoginInputs () {
+  var $emailLogin = $('#emailLogin').val(' ');
+  var $passwordLogin = $('#passwordLogin').val(' ');
+  var $verifyPassword = $('#verifyPassword').val(' ');
+
+}
 
 //remove the task from firebase and the view
 function removeTask (event) {
