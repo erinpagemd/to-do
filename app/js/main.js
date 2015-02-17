@@ -11,10 +11,12 @@ var FIREBASE_URL = 'https://honey-dew.firebaseio.com/',
 $(document).ready(initialize);
 function initialize () {
 
+  //add task to the firebase when click on add to list
   $('#addNewToDo').click(addNewToDo);
 
-  //click the 'x' to remove the task
-  $('.tasks').click(removeTask);
+  //click the 'x' to remove the task. click event is happening on the .tasks due to div being added after. need to specify the button.
+  $('.tasks').on('click', '.btn-warning', removeTask);
+  //how to use submit event?
 
   getExistingTasks();
 }//end of initialize
@@ -29,7 +31,7 @@ function removeTask (event) {
   $.ajax(urlItem, {type: 'DELETE'});
 
   $divToRemove.remove();
-}
+}//end removeTask
 
 //get the data from firebase
 function getExistingTasks () {
@@ -53,7 +55,7 @@ function makeTaskDiv (uuid, data) {
   var $divTask = $('<div class="tableBody"></div>');
 
   //each item in the task
-  var $li = $('<li><input type="checkbox">  ' + data.task + '<button class="btn btn-warning">x</button></li>');
+  var $li = $('<li class="tableRow">' + data.task + '<button class="btn btn-warning">x</button></li>');
 
   //append the items to the task div
   $divTask.append($li);
