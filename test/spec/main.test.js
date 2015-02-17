@@ -29,25 +29,49 @@ describe('loadTask', function () {
 })//end loadTask
 
 describe('makeTaskDiv', function () {
-  //it should do the things
-})// end makeTaskDiv
+  var data = {task: 'this is a task'};
+  var uuid = '8675309';
+
+  var toTest = makeTaskDiv(uuid, data);
+
+  console.log(toTest, toTest.data('uuid'));
+
+  it('should have one li child', function () {
+    expect(toTest.children('li').length).to.equal(1);
+  });
+  it('should give a data attribute to the div', function () {
+    expect(toTest.data('uuid')).to.equal(8675309);
+  });
+  //the text of the li should be the data.task
+});// end makeTaskDiv
 
 describe('addNewToDo', function () {
-  //it should do things
-})// end addNewToDo
+  it('should empty the div with class tasks', function () {
+    var $divToEmpty = $('<div class="tasks"></div>');
+    $('body').append($divToEmpty);
+    var $divToClear = $('<div></div>');
+    $divToEmpty.append($divToClear);
+    var event = {};
+    event.preventDefault = function () {};
+
+    expect($divToEmpty.children().length).to.equal(1);
+    addNewToDo(event);
+    expect($divToEmpty.children().length).to.equal(0);
+  });
+});// end addNewToDo
 
 describe('getNewToDo', function () {
-  var input = $('<input id="newToDo" value="this is a value">');
-  $('body').append(input);
-  var event = {};
-  event.preventDefault = function () {};
-
   it('should clear the input value', function () {
-    input.val().should.equal('this is a value');
+    var $input = $('<input id="newToDo" value="this is a value">');
+    $('body').append($input);
+    var event = {};
+    event.preventDefault = function () {};
+
+    $input.val().should.equal('this is a value');
     getNewToDo(event);
     $('input').val().should.equal('');
   });
-  it('should return the input start value', function () {
-    //newToDo = 'this is a value'
-  });
+  // it('should return the input start value', function () {
+  //   //newToDo = 'this is a value'
+  // });
 });//end of getNewToDo
