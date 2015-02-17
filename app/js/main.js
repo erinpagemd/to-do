@@ -49,13 +49,13 @@ function initialize () {
     $('#auth').hide();
     //sign me up button
     $('#firstTime').hide();
+    //hide the logout button
+    $('#logout').hide();
     //hide the add task form
     $('#createTask').hide()
     //hide the task list
     $('.tasks').hide();
-  }
-
-  //getExistingTasks();
+  }// end if auth
 
   //click login
   $('#login').click(showLogin);
@@ -75,7 +75,7 @@ function initialize () {
   //add task to the firebase when click on add to list
   $('#addNewToDo').click(addNewToDo);
   //click the 'x' to remove the task. click event is happening on the .tasks due to div being added after. need to specify the button.
-  // $('.tasks').on('click', '.btn-warning', removeTask);
+  $('.tasks').on('click', '.btn-warning', removeTask);
   //how to use submit event?
 
 }//end of initialize
@@ -155,6 +155,8 @@ function loginExistingUser (event) {
       $('#loginForm').toggle();
       //hide the picture
       $('#image').toggle();
+      //show the logout button
+      $('#logout').toggle();
       //show the task add form
       $('#createTask').toggle();
       //show the task list
