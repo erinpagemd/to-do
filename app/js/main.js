@@ -35,7 +35,7 @@ function initialize () {
     //show the task list
     //get the existing tasks
     getExistingTasks();
-    
+
   } else {
     //hide the login form elements
     // $('#loginForm').hide();
@@ -162,7 +162,7 @@ function loginExistingUser (event) {
       //set the usersFbUrl
       usersFbUrl = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data';
       //load the exisiting tasks
-      //getExistingTasks();
+      getExistingTasks();
       console.log('Authenticated successfully with payload: ', authData);
     }
   });
