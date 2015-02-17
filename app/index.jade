@@ -22,14 +22,16 @@ html
       button.btn.btn-info.btn-lg(id='auth') Sign Me In!
       button.btn.btn-info.btn-lg(id='firstTime') Sign Me Up!
     
-    //- buttons to login or logout  
+    //- buttons to login and sign up
     form.form-inline(id='authActionForm')
       button.btn.btn-primary(id='login') Login
       button.btn.btn-primary(id='signup') Sign Up
+      
+    form.form-inline      
       button.btn.btn-danger(id='logout') Logout
       
     //- image 
-    img(src='../honeydo.jpg')
+    img(src='../honeydo.jpg' id='image')
     
     //- creating a task 
     form.form-horizontal.col-sm-offset-3(id='createTask')

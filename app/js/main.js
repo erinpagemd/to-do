@@ -4,7 +4,7 @@
 //     _ = require('lodash'),
 //    Firebase = require('firebase');
 
-var FIREBASE_URL = 'https://honey-dew.firebaseio.com/',
+var FIREBASE_URL = 'https://honey-dew.firebaseio.com',
     fb = new Firebase(FIREBASE_URL),
     usersFbUrl;
 
@@ -14,9 +14,28 @@ function initialize () {
   //first come to website, are you logged in?
   if(fb.getAuth()) {
     //console.log(getAuth());
-    //if logged in, hide certain things
+    //hide the login form
+    // $('#emailLogin').hide();
+    //hide the email
+    $('#emailLogin').hide();
+    //hide the password
+    $('#passwordLogin').hide();
+    //verify
+    $('#verifyPassword').hide();
+    //hide the sign me in button
+    $('#auth').hide();
+    //hide the sign me up button
+    $('#firstTime').hide();
+    //hide the image
+    $('#image').hide();
+    //hide the action buttons
+    $('#authActionForm').hide();
     //set the usersFbUrl
+    usersFbUrl = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data';
     //show the task list
+    //get the existing tasks
+    getExistingTasks();
+    
   } else {
     //hide the login form elements
     // $('#loginForm').hide();
@@ -36,7 +55,7 @@ function initialize () {
     $('.tasks').hide();
   }
 
-  getExistingTasks();
+  //getExistingTasks();
 
   //click login
   $('#login').click(showLogin);
@@ -56,7 +75,7 @@ function initialize () {
   //add task to the firebase when click on add to list
   $('#addNewToDo').click(addNewToDo);
   //click the 'x' to remove the task. click event is happening on the .tasks due to div being added after. need to specify the button.
-  $('.tasks').on('click', '.btn-warning', removeTask);
+  // $('.tasks').on('click', '.btn-warning', removeTask);
   //how to use submit event?
 
 }//end of initialize
@@ -65,7 +84,8 @@ function initialize () {
 function logoutUser (event) {
   event.preventDefault();
   fb.unauth();
-}
+  location.reload(true);
+}//end logoutUser
 
 //show the signup form
 function showSignup (event) {
@@ -117,6 +137,7 @@ function createNewUser (event) {
     if (error === null) {
       loginExistingUser(event);
     } else {
+      //hide and show certain things
       alert('rejected! ', error.code);
     }
   });
@@ -130,6 +151,18 @@ function loginExistingUser (event) {
       alert('login failed', error);
       console.log(error);
     } else {
+      //hide the login form
+      $('#loginForm').toggle();
+      //hide the picture
+      $('#image').toggle();
+      //show the task add form
+      $('#createTask').toggle();
+      //show the task list
+      $('.tasks').toggle();
+      //set the usersFbUrl
+      usersFbUrl = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data';
+      //load the exisiting tasks
+      //getExistingTasks();
       console.log('Authenticated successfully with payload: ', authData);
     }
   });
@@ -150,7 +183,7 @@ function removeTask (event) {
   var $divToRemove = $(event.target).closest('.tableBody');
   var uuid = $divToRemove.data('uuid');
 
-  var urlItem = FIREBASE_URL + '/tasks/' + uuid + '.json';
+  var urlItem = usersFbUrl + '/tasks/' + uuid + '.json';
   $.ajax(urlItem, {type: 'DELETE'});
 
   $divToRemove.remove();
@@ -158,7 +191,8 @@ function removeTask (event) {
 
 //get the data from firebase
 function getExistingTasks () {
-  $.get(FIREBASE_URL + 'tasks/.json', function(resFB) {
+  $.get(usersFbUrl + '/tasks.json', function(resFB) {
+    console.log(usersFbUrl);
     Object.keys(resFB).forEach(function(uuid) {
       loadTask(uuid, resFB[uuid]);
     });
@@ -189,9 +223,9 @@ function makeTaskDiv (uuid, data) {
 
 //add the new to-do to firebase
 function addNewToDo (event) {
-  var url = FIREBASE_URL + 'tasks/.json';
+  usersFbUrl = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data';
   var toDoObj = JSON.stringify({task: getNewToDo(event)});
-  $.post(url, toDoObj, function(res){
+  $.post(usersFbUrl + '/tasks.json', toDoObj, function(res){
     // var newestTask = makeTaskDiv(res.name, toDoObj);
     // console.log(res.name, newestTask);
     // $('.tasks').append(newestTask);
