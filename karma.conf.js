@@ -18,7 +18,6 @@ module.exports = function(config) {
       'public/vendor/**/*.js',
       'public/js/**/*.js',
       'test/spec/**/*.test.js'
-      //add foundation????
     ],
 
 

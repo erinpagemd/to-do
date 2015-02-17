@@ -78,6 +78,7 @@ describe('addNewToDo', function () {
     $divToEmpty.append($divToClear);
     var event = {};
     event.preventDefault = function () {};
+    //need to compensate for fb.getAuth().uid
 
     expect($divToEmpty.children().length).to.equal(1);
     addNewToDo(event);

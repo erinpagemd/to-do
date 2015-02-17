@@ -225,6 +225,7 @@ function makeTaskDiv (uuid, data) {
 
 //add the new to-do to firebase
 function addNewToDo (event) {
+  event.preventDefault();
   usersFbUrl = FIREBASE_URL + '/users/' + fb.getAuth().uid + '/data';
   var toDoObj = JSON.stringify({task: getNewToDo(event)});
   $.post(usersFbUrl + '/tasks.json', toDoObj, function(res){
