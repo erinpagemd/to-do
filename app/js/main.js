@@ -48,15 +48,13 @@ function getUserInfo (event) {
 //create a new user account and login
 function createNewUser (event) {
   event.preventDefault();
-  fb.createUser(getUserInfo(event), function(error, userData) {
-    if (error) {
-      alert('REJECTED! ', error.code);
+  fb.createUser(getUserInfo(event), function(error) {
+    if (error === null) {
+      loginExistingUser(event);
     } else {
-      console.log('Successfully created user account with uid: ', userData.uid);
+      alert('rejected! ', error.code);
     }
   });
-
-  clearLoginInputs();
 }
 
 //log a user in that already has an account
@@ -65,8 +63,9 @@ function loginExistingUser (event) {
   fb.authWithPassword(getUserInfo(event), function(error, authData) {
     if (error) {
       alert('login failed', error);
+      console.log(error);
     } else {
-      console.log('Authenteicated successfully with payload: ', authData);
+      console.log('Authenticated successfully with payload: ', authData);
     }
   });
 
@@ -75,9 +74,9 @@ function loginExistingUser (event) {
 
 //clear the login input values
 function clearLoginInputs () {
-  var $emailLogin = $('#emailLogin').val(' ');
-  var $passwordLogin = $('#passwordLogin').val(' ');
-  var $verifyPassword = $('#verifyPassword').val(' ');
+  var $emailLogin = $('#emailLogin').val('');
+  var $passwordLogin = $('#passwordLogin').val('');
+  var $verifyPassword = $('#verifyPassword').val('');
 
 }
 
