@@ -68,8 +68,15 @@ function makeTaskDiv (uuid, data) {
 function addNewToDo (event) {
   var url = FIREBASE_URL + 'tasks/.json';
   var toDoObj = JSON.stringify({task: getNewToDo(event)});
-  $.post(url, toDoObj, function(res){});
+  $.post(url, toDoObj, function(res){
+    // var newestTask = makeTaskDiv(res.name, toDoObj);
+    // console.log(res.name, newestTask);
+    // $('.tasks').append(newestTask);
+
+  });
   $('.tasks').empty();
+
+  //next try to add the div to the page without reloading
   getExistingTasks();
 }//end of addNewToDo
 

@@ -2,9 +2,7 @@
 
 describe('beforeEach test', function () {
   beforeEach(function(done) {
-    if (window.__karma__) {
-      $('body').empty();
-    }
+    $('body').empty();
     done();
   });//end beforeEach
 });//end describe beforeEach
@@ -25,8 +23,19 @@ describe('getExistingTasks', function () {
 })//end getExisting Tasks
 
 describe('loadTask', function () {
-  //here it goes
-})//end loadTask
+
+  it('should make an array of tasks', function () {
+    var $divToEmpty = $('<div class="tasks"></div>');
+    $('body').append($divToEmpty);
+    var data = { task: 'get jenny number' };
+    var uuid = '8675309';
+    var loaded = loadTask(uuid, data);
+
+    expect(loaded).to.be.an('array');
+    expect(loaded.length).to.equal(1);
+  });
+
+});//end loadTask
 
 describe('makeTaskDiv', function () {
   var data = { task: 'get jenny number' };
@@ -34,8 +43,6 @@ describe('makeTaskDiv', function () {
 
   var div = makeTaskDiv(uuid, data);
   var li = div.children('li');
-
-  console.log(li.text());
 
   it('should have one li child', function () {
     expect(div.children('li').length).to.equal(1);
@@ -61,6 +68,7 @@ describe('addNewToDo', function () {
     expect($divToEmpty.children().length).to.equal(1);
     addNewToDo(event);
     expect($divToEmpty.children().length).to.equal(0);
+
   });
 });// end addNewToDo
 
