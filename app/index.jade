@@ -9,6 +9,28 @@ html
   body
     h1 Honey Dew
     
+    
+    //- enter email password
+    form.form-inline(id='loginForm')
+      .form-group
+        input.form-control(type='email' placeholder='enter email')
+      .form-group
+        input.form-control(type='password' placeholder='password')
+      //- verify password when signing up
+      .form-group
+        input.form-control(type='password' placeholder='verify password') 
+      button.btn.btn-info.btn-lg Let's Go!
+    
+    //- buttons to login or logout  
+    form.form-inline(id='authActionForm')
+      button.btn.btn-primary Login
+      button.btn.btn-primary Sign Up
+      button.btn.btn-danger Logout
+      
+    //- image 
+    img(src='../honeydo.jpg')
+    
+    //- creating a task 
     form.form-horizontal.col-sm-offset-3
       .col-sm-6
         input.form-control(type='text' id='newToDo' placeholder='add task... ')
