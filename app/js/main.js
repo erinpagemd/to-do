@@ -11,11 +11,41 @@ var FIREBASE_URL = 'https://honey-dew.firebaseio.com/',
 $(document).ready(initialize);
 function initialize () {
 
+  //first come to website, are you logged in?
+  if(fb.getAuth()) {
+    //console.log(getAuth());
+    //if logged in, hide certain things
+    //set the usersFbUrl
+    //show the task list
+  } else {
+    //hide the login form elements
+    // $('#loginForm').hide();
+    //email
+    $('#emailLogin').hide();
+    //password
+    $('#passwordLogin').hide();
+    //verify
+    $('#verifyPassword').hide();
+    //sign me in button
+    $('#auth').hide();
+    //sign me up button
+    $('#firstTime').hide();
+    //hide the add task form
+    $('#createTask').hide()
+    //hide the task list
+    $('.tasks').hide();
+  }
+
+  getExistingTasks();
+
   //click login
+  $('#login').click(showLogin);
 
   //click signup
+  $('#signup').click(showSignup);
 
   //click logout
+  $('#logout').click(logoutUser);
 
   //click sign me IN
   $('#auth').click(loginExistingUser);
@@ -29,8 +59,43 @@ function initialize () {
   $('.tasks').on('click', '.btn-warning', removeTask);
   //how to use submit event?
 
-  getExistingTasks();
 }//end of initialize
+
+//logout the user
+function logoutUser (event) {
+  event.preventDefault();
+  fb.unauth();
+}
+
+//show the signup form
+function showSignup (event) {
+  event.preventDefault();
+  //show the email
+  $('#emailLogin').toggle();
+  //show the password
+  $('#passwordLogin').toggle();
+  //show the verify password
+  $('#verifyPassword').toggle();
+  //show the signup button
+  $('#firstTime').toggle();
+  //hide authActionForm
+  $('#authActionForm').toggle();
+
+}//end showSignup
+
+//show the login form
+function showLogin (event) {
+  event.preventDefault();
+  //show the email
+  $('#emailLogin').toggle();
+  //show the password
+  $('#passwordLogin').toggle();
+  //show the sign me in button
+  $('#auth').toggle();
+  //hide authActionForm
+  $('#authActionForm').toggle();
+
+}//end showLogin
 
 //get the users credentials
 function getUserInfo (event) {
@@ -43,7 +108,7 @@ function getUserInfo (event) {
   }
 
   return loginObj;
-}
+}//end of getUserInfo
 
 //create a new user account and login
 function createNewUser (event) {
@@ -55,7 +120,7 @@ function createNewUser (event) {
       alert('rejected! ', error.code);
     }
   });
-}
+}//end createNewUser
 
 //log a user in that already has an account
 function loginExistingUser (event) {
@@ -70,15 +135,14 @@ function loginExistingUser (event) {
   });
 
   clearLoginInputs();
-}
+}//end loginExistingUser
 
 //clear the login input values
 function clearLoginInputs () {
   var $emailLogin = $('#emailLogin').val('');
   var $passwordLogin = $('#passwordLogin').val('');
   var $verifyPassword = $('#verifyPassword').val('');
-
-}
+}//end clearLoginInputs
 
 //remove the task from firebase and the view
 function removeTask (event) {
