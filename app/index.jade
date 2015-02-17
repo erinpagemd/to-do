@@ -13,13 +13,13 @@ html
     //- enter email password
     form.form-inline(id='loginForm')
       .form-group
-        input.form-control(type='email' placeholder='enter email')
+        input.form-control(type='email' id='emailLogin' placeholder='enter email')
       .form-group
-        input.form-control(type='password' placeholder='password')
+        input.form-control(type='password' id='passwordLogin' placeholder='password')
       //- verify password when signing up
       .form-group
-        input.form-control(type='password' placeholder='verify password') 
-      button.btn.btn-info.btn-lg Let's Go!
+        input.form-control(type='password' id='verifyPassword' placeholder='verify password') 
+      button.btn.btn-info.btn-lg(id='auth') Let's Go!
     
     //- buttons to login or logout  
     form.form-inline(id='authActionForm')

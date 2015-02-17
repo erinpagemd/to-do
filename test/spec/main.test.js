@@ -15,7 +15,21 @@ describe('test suite', function () {
 });//end ts
 
 describe('removeTask', function () {
-  //test the things
+  var $divToRemove = $('<div class="tableBody"></div>');
+  $('body').append($divToRemove);
+  var $target = $('<div class="target"></div>');
+  $divToRemove.append($target);
+  var event = {};
+  event.preventDefault = function () {};
+
+  //not sure how to use event.target here.
+  // console.log($divToRemove);
+  //
+  // removeTask(event);
+  //
+  // console.log($divToRemove);
+
+
 })//end removeTask
 
 describe('getExistingTasks', function () {

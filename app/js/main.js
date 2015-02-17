@@ -11,15 +11,45 @@ var FIREBASE_URL = 'https://honey-dew.firebaseio.com/',
 $(document).ready(initialize);
 function initialize () {
 
+  //login stuff
+  $('#auth').click(getUserInfo)
+
   //add task to the firebase when click on add to list
   $('#addNewToDo').click(addNewToDo);
-
   //click the 'x' to remove the task. click event is happening on the .tasks due to div being added after. need to specify the button.
   $('.tasks').on('click', '.btn-warning', removeTask);
   //how to use submit event?
 
   getExistingTasks();
 }//end of initialize
+
+//get the users credentials
+function getUserInfo (event) {
+  event.preventDefault();
+  var $emailLogin = $('#emailLogin').val();
+  var $passwordLogin = $('#passwordLogin').val();
+  var $verifyPassword = $('#verifyPassword').val();
+  var loginObj = {
+    email: $emailLogin,
+    password: $passwordLogin
+  }
+  createNewUser(loginObj);
+  //have a function that gets the auth
+  //if already a user login, if not then create user and login
+
+}
+
+//create a new user account
+function createNewUser (obj) {
+  fb.createUser(obj, function(error, userData) {
+    if (error) {
+      console.log('Error creating user: ', error);
+    } else {
+      console.log('Successfully created user account with uid: ', userData.uid);
+    }
+  });
+}
+
 
 //remove the task from firebase and the view
 function removeTask (event) {
