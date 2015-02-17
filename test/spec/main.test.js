@@ -29,20 +29,24 @@ describe('loadTask', function () {
 })//end loadTask
 
 describe('makeTaskDiv', function () {
-  var data = {task: 'this is a task'};
+  var data = { task: 'get jenny number' };
   var uuid = '8675309';
 
-  var toTest = makeTaskDiv(uuid, data);
+  var div = makeTaskDiv(uuid, data);
+  var li = div.children('li');
 
-  console.log(toTest, toTest.data('uuid'));
+  console.log(li.text());
 
   it('should have one li child', function () {
-    expect(toTest.children('li').length).to.equal(1);
+    expect(div.children('li').length).to.equal(1);
   });
   it('should give a data attribute to the div', function () {
-    expect(toTest.data('uuid')).to.equal(8675309);
+    expect(div.data('uuid')).to.equal(8675309);
   });
-  //the text of the li should be the data.task
+  it('should have a text node equal to data.taskx (bc of the button text of x) on the li', function () {
+    expect(li.text()).to.equal('get jenny numberx');
+  });
+
 });// end makeTaskDiv
 
 describe('addNewToDo', function () {
