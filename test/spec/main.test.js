@@ -4,7 +4,6 @@ describe('beforeEach test', function () {
   beforeEach(function(done) {
     if (window.__karma__) {
       $('body').empty();
-      $('body').append($('<div class="tasks"></div>'));
     }
     done();
   });//end beforeEach
@@ -17,15 +16,38 @@ describe('test suite', function () {
   });
 });//end ts
 
+describe('removeTask', function () {
+  //test the things
+})//end removeTask
+
+describe('getExistingTasks', function () {
+  //test the things
+})//end getExisting Tasks
+
+describe('loadTask', function () {
+  //here it goes
+})//end loadTask
+
+describe('makeTaskDiv', function () {
+  //it should do the things
+})// end makeTaskDiv
+
+describe('addNewToDo', function () {
+  //it should do things
+})// end addNewToDo
+
 describe('getNewToDo', function () {
+  var input = $('<input id="newToDo" value="this is a value">');
+  $('body').append(input);
+  var event = {};
+  event.preventDefault = function () {};
+
   it('should clear the input value', function () {
-    var input = $('<input id="newToDo" value="this is a value">');
-    $('.tasks').append(input);
-    var valueInput = input;
-    console.log(valueInput);
-    input.length.should.equal('');
-//    $('#addNewToDo').click();
-//    getNewToDo()
-//    $('input').text.should.equal('');
+    input.val().should.equal('this is a value');
+    getNewToDo(event);
+    $('input').val().should.equal('');
+  });
+  it('should return the input start value', function () {
+    //newToDo = 'this is a value'
   });
 });//end of getNewToDo

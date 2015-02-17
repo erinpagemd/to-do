@@ -5,7 +5,7 @@
 //    Firebase = require('firebase');
 
 var FIREBASE_URL = 'https://honey-dew.firebaseio.com/',
-    fb,
+    fb = new Firebase(FIREBASE_URL),
     usersFbUrl;
 
 $(document).ready(initialize);
